@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="logo1.jpeg" type="image/x-icon">
+    <title>AGNI Text To Image Generator</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            background-color: #7E60BF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container{
+            width: 70%;
+            height: 90%;
+            background:linear-gradient( 109.6deg,  rgba(112,246,255,0.33) 11.2%, rgba(221,108,241,0.26) 42%, rgba(229,106,253,0.71) 71.5%, rgba(123,183,253,1) 100.2% );/* Gradint hunt Website to pick color*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 2px 2px 30px rgb(0, 247, 255);
+            border: none;
+            border-radius: 20px;
+            padding: 30px;
+            box-sizing: border-box;
+            gap: 20px;
+        }
+        h1{
+            font-size: 40px;
+            text-shadow: 2px 2px 10px rgb(255, 145, 0);
+        }
+        .input{
+            width: 90%;
+            height: 30%;
+            background:linear-gradient( 107.7deg,  rgba(235,230,44,0.55) 8.4%, rgba(252,152,15,1) 90.3% );
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+            font-size: 20px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        #input{
+            width: 70%;
+            height: 40px;
+            background-color: rgba(209, 221, 223, 0.68);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 2px 2px 20px rgb(4, 0, 255);
+            font-size: 20px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        #btn{
+            width: 200px;
+            height: 50px;
+            background-color: rgba(209, 221, 223, 0.68);
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            box-shadow: 2px 2px 20px rgb(0, 255, 76);
+            transition: all 0.5;
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        #btn:hover{
+            background: rgb(0, 255, 76);
+        }
+        .output{
+            width: 90%;
+            height: 55%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .image{
+            width: 70%;
+            height: 100%;
+            background: linear-gradient( 180.7deg,  rgb(3, 146, 175) 2.5%, rgba(79,255,255,1) 97.7% );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 10px;
+            position: relative;
+        }
+        .btns{
+            width: 25%;
+            height: 100%;
+            background: linear-gradient( 180.7deg,  rgb(3, 146, 175) 2.5%, rgba(79,255,255,1) 97.7% );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 10px;
+            flex-direction: column;
+            gap: 90px;
+        }
+        #download{
+            width: 150px;
+            height: 50px;
+            background-color: rgba(209, 221, 223, 0.68);
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            box-shadow: 2px 2px 20px rgb(0, 255, 76);
+            transition: all 0.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        #download:hover{
+            background: rgb(0, 255, 76);
+        }
+        #reset{
+            width: 150px;
+            height: 50px;
+            background-color: rgba(209, 221, 223, 0.68);
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            box-shadow: 2px 2px 20px rgb(0, 255, 76);
+            transition: all 0.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        #reset:hover{
+            background: red;
+        }
+        #image{
+            width: 85%;
+            height: 90%;
+            background-size: cover;
+            border: none;
+            border-radius: 10px;
+            display: none;
+        }
+        #loading{
+            position: absolute;
+            width: 15%;
+            filter: drop-shadow(2px 2px 10px black);
+            border-radius: 50%;
+            display: none;
+        }
+
+        @media (max-width : 1200px) {
+            .container{
+                width: 90%;
+            }
+        }
+        @media (max-width:900px) {
+            .container{
+                flex-direction: column;
+            }
+            #image{
+                width: 50%;
+            }
+            .image{
+                width: 100%;
+                height: 64%;
+            }
+            .btns{
+                width: 100%;
+                height: 25%;
+                flex-direction: row;
+            }
+            .output{
+                flex-direction: column;
+            }
+        }
+        @media (max-width:570px) {
+            h1{
+                font-size: 30px;
+            }
+            .input{
+                font-size: 20px;
+            }
+            #input{
+                font-size: 15px;
+            }
+            #image{
+                width: 60%;
+            }
+            .output{
+                flex-direction: column;
+            }
+        }
+        @media (max-width:450px) {
+            .container{
+                width: 100%;
+                height: 100%;
+                border-radius: 0px;
+            }
+            h1{
+                font-size: 22px;
+            }
+            .input{
+                font-size: 15px;
+            }
+            #input{
+                
+                width: 90%;
+                font-size: 12px;
+            }
+            #btn{
+                width: 150px;
+                height: 35px;
+                font-size: 15px;
+            }
+            .btns{
+                flex-direction: column;
+                justify-content: space-around;
+                gap: 0px;
+            }
+            #download{
+                width: 110px;
+                height: 35px;
+                font-size: 15px;
+            }
+            #reset{
+                width: 110px;
+                height: 35px;
+                font-size: 15px;
+            }
+            .output{
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+  <h1>🔥AGNI Text To Image Generator</h1>
+    <div class="input">
+        <label for="">👉Create An Image From Text</label>
+        <input type="text" id="input" placeholder="Enter a Text To Generate The Image...">
+        <button id="btn">Generate Image <img src="gen.svg" alt=""></button>
+    </div>
+    <div class="output">
+        <div class="image">
+        <img id="image" src="" alt="No Image Found Pls Try Again">
+        <img id="svg" src="image.svg" alt="">
+        <img id="loading" src="load.gif" alt="">
+    </div>
+        <div class="btns">
+            <button id="download">Download <img src="down.svg" alt=""></button>
+            <button id="reset">Reset <img src="reset.svg" alt=""></button>
+        </div>
+    </div>
+</div>
+    <script>
+        const key = "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";
+        const inputText = document.getElementById("input");
+        const image = document.getElementById("image");
+        const GenBtn = document.getElementById("btn");
+        const svg = document.getElementById("svg");
+        const load = document.getElementById("loading");
+        const ResetBtn = document.getElementById("reset");
+        const downloadBtn = document.getElementById("download");
+
+        async function query(data) {
+	const response = await fetch(
+		"https://api-inference.huggingface.co/models/ZB-Tech/Text-to-Image",
+		{
+			headers: {
+				Authorization: `Bearer ${key}`
+				
+			},
+			method: "POST",
+			body: JSON.stringify({"inputs": inputText.value}),
+		}
+	);
+	const result = await response.blob();
+    image.style.display="block";
+    load.style.display="none";
+	return result;
+}
+async function generate() {
+
+    load.style.display="block";
+    query().then((response) => {
+        const objectUrl = URL.createObjectURL(response);
+        image.src = objectUrl;
+        downloadBtn.addEventListener("click" , ()=> {
+            download(objectUrl)
+        })
+});
+    
+}
+GenBtn.addEventListener("click" , () => {
+    generate();
+     svg.style.display="none"
+})
+
+    inputText.addEventListener("keydown" , (e) =>{
+    if(e.key == "Enter")
+    {
+        generate();
+        svg.style.display="none"
+    }
+    })
+
+    ResetBtn.addEventListener("click" , () =>{
+        inputText.value=""
+        window.location.reload();
+    })
+
+    function download(objectUrl) {
+    fetch(objectUrl)
+        .then(res => res.blob())
+        .then(file => {
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(file);
+            a.download = `image_${new Date().getTime()}.png`; // Set a proper filename
+            a.click();
+        })
+        .catch(() => alert("Failed to download"));
+}
+
+    </script>
+</body>
+</html>
